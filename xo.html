@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>XO Game</title>
+  <style>
+    .board {
+      display: grid;
+      grid-template-columns: 100px 100px 100px;
+      grid-template-rows: 100px 100px 100px;
+      margin: 20px; 
+    }
+
+    .box {
+      border: 1px solid black;
+      font-size: 40px;
+      text-align: center;
+      line-height: 100px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="board">
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+</div>
+
+<script>
+
+let boxes = document.querySelectorAll(".box");
+let turn = "X";
+
+boxes.forEach(function(box) {
+  box.addEventListener("click", function() {
+
+    if (box.innerHTML !== "") return;
+
+    box.innerHTML = turn;
+
+    if (checkWinner()) {
+      alert(turn + " Wins!");
+      location.reload();
+    }
+
+    turn = (turn === "X") ? "O" : "X";
+
+  });
+});
+
+function checkWinner() {
+
+  let win = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
+  ];
+
+  for (let i = 0; i < win.length; i++) {
+
+    let a = boxes[win[i][0]].innerHTML;
+    let b = boxes[win[i][1]].innerHTML;
+    let c = boxes[win[i][2]].innerHTML;
+
+    if (a !== "" && a === b && b === c) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+</script>
+
+</body>
+</html>
